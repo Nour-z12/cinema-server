@@ -3,6 +3,11 @@
 require_once __DIR__.'/../connection/connection.php';
 require_once __DIR__.'/../models/user.php';
 
+header("Access-Control-Allow-Origin: *  "); 
+header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: POST, GET");
+header("Access-Control-Allow-Headers: Content-Type");
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $input = json_decode(file_get_contents('php://input'), true);
 
@@ -23,6 +28,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 try {
+
+
+    if(isset($new_data['password_hash']) && !empty($new_data['password_hash'])) {
+        $new_data['password_hash'] = password_hash($new_data['password_hash'], PASSWORD_DEFAULT);
+    }
+
     $success = $user->update($conn, $new_data);
     
     if ($success) {

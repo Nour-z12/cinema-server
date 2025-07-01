@@ -11,7 +11,7 @@ $sql = "CREATE TABLE IF NOT EXISTS seatTypes (
 $execute = $conn->prepare($sql);
 
 if ($execute && $execute->execute()) {
-    echo "Table 'seat_types' created successfully.";
+    echo "Table 'seatTypes' created successfully.";
 } else {
     echo "Error creating table: " . $conn->error;
 }
